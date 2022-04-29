@@ -4,7 +4,8 @@
  * rpc 服务端
  * Class RpcServer
  */
-class RpcServer {
+class RpcServer
+{
 
     protected $serv = null;
 
@@ -15,7 +16,8 @@ class RpcServer {
      * @param $port
      * @param $path
      */
-    public function __construct($host, $port, $path) {
+    public function __construct($host, $port, $path)
+    {
 
         //创建tcp socket服务
         $this->serv = stream_socket_server("tcp://{$host}:{$port}", $errno, $errstr);
@@ -57,8 +59,8 @@ class RpcServer {
                         }
                         //返回结果
                         fwrite($client, $data);
-                    }else{
-                        fwrite($client,date('Y-m-d H:i:s')."\t"."[$file] Service files do not exist.");
+                    } else {
+                        fwrite($client, date('Y-m-d H:i:s') . "\t" . "[$file] Service files do not exist.");
                     }
                 } else {
                     fwrite($client, 'class or method error');
@@ -69,7 +71,8 @@ class RpcServer {
         }
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         fclose($this->serv);
     }
 }

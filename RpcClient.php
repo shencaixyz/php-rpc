@@ -4,7 +4,8 @@
  * rpc 客户端
  * Class RpcClient
  */
-class RpcClient {
+class RpcClient
+{
     protected $urlInfo = array();
 
     /**
@@ -12,9 +13,10 @@ class RpcClient {
      * RpcClient constructor.
      * @param $url
      */
-    public function __construct($url) {
+    public function __construct($url)
+    {
         $this->urlInfo = parse_url($url);
-        if(!$this->urlInfo) {
+        if (!$this->urlInfo) {
             exit("{$url} error \n");
         }
     }
@@ -25,23 +27,24 @@ class RpcClient {
      * @param $params
      * @return string
      */
-    public function __call($method, $params) {
+    public function __call($method, $params)
+    {
         //创建一个客户端
         $client = stream_socket_client("tcp://{$this->urlInfo['host']}:{$this->urlInfo['port']}", $errno, $errstr);
         if (!$client) {
             exit("{$errno} : {$errstr} \n");
         }
         //采用json格式进行通讯
-        $proto=array(
+        $proto = array(
             //传递调用的类名
-            'class'=>basename($this->urlInfo['path']),
+            'class' => basename($this->urlInfo['path']),
             //传递调用的方法名
-            'method'=>$method,
+            'method' => $method,
             //传递方法的参数
-            'params'=>$params,
+            'params' => $params,
         );
 
-        $protoData=json_encode($proto);
+        $protoData = json_encode($proto);
 
         //发送自定义的协议数据
         fwrite($client, $protoData);
@@ -54,5 +57,5 @@ class RpcClient {
 }
 
 $cli = new RpcClient('http://0.0.0.0:8000/User');
-$cli->test().PHP_EOL;
+$cli->test() . PHP_EOL;
 $cli->getUserInfo(array('name' => '张三', 'age' => 27));

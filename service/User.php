@@ -4,12 +4,14 @@
  * 服务文件
  * Class User
  */
-class User {
+class User
+{
     /**
      * 获取用户ID
      * @return string
      */
-    public function test() {
+    public function test()
+    {
         // todo
         {
 
@@ -22,7 +24,8 @@ class User {
      * @param $params
      * @return string
      */
-    public function getUserInfo($params) {
+    public function getUserInfo($params)
+    {
         // todo
         {
 
